@@ -7,6 +7,7 @@ class City:
         self.lat = float(lat)
         self.lon = float(lon)
 
+#Repr returns a represntation of name, lat, lon
     def __repr__(self):
         return f'city: {self.name} | lat: {self.lat} | long: {self.lon}'
 
@@ -31,15 +32,16 @@ import csv
 # `cities` list
 def cityreader(cities=[]):
     cities = []
-    with open('cities.csv') as csvfile:
-        readCSV = csv.reader(csvfile, delimiter=',')
-        next(readCSV)  # skip the head
-        for field in readCSV:
-            cities.append(City(field[0], field[3], field[4]))
-    return cities
+    #was not taught what with open does found it in the magical land of google lol
+    with open('cities.csv') as csvfile:# int his case it is opening csv
+        readCSV = csv.reader(csvfile, delimiter=',') #it is comma seperating everything to make it readable
+        next(readCSV)#was not taught about next essentially it just calls next as in move on repeatedly, in short it iterates through the file
+        for field in readCSV:#Usual for loop shennanigans
+            cities.append(City(field[0], field[3], field[4]))#adds what is in the file to the cities list
+    return cities #returns the list
 
 
-cities = cityreader()
+cities = cityreader() #instantiates the function cityreader so we get a nice terminal print out
 
 
  #Print the list of cities (name, lat, lon), 1 record per line.
@@ -79,14 +81,19 @@ for c in cities:
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
     # within will hold the cities that fall within the specified region
-    within = []
-    lat = [min(lat1, lat2), max(lat1, lat2)]
-    lon = [min(lon1, lon2), max(lon1, lon2)]
+    within = []#empty list
+    lat = [min(lat1, lat2), max(lat1, lat2)]#takes the min and max lat
+    lon = [min(lon1, lon2), max(lon1, lon2)]#takes the min and max lon
     for city in cities:
+        # so if the city's lat is greater or equal to the lat in the 0 postion above
+        # and city lat is below or equal to the lat in the 1 position above
+        # and city lon is above or equal to the lon in position 0 above
+        # and city lon is below the lon in position 1 above
+        # it then adds that city to the empty list
         if city.lat >= lat[0] and city.lat <= lat[1] and city.lon >= lon[0] and city.lon <= lon[1]:
             within.append(city)
 
-            # TODO Ensure that the lat and lon valuse are all floats
+    #need a float check
     # Go through each city and check to see if it falls within
     # the specified coordinates.
 
